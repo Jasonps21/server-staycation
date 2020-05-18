@@ -6,14 +6,18 @@ var logger = require("morgan");
 var methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
+const cors = require("cors");
 // IMport mongoose
 var mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://jason:bwamern@cluster0-ouoio.mongodb.net/db_staycation?retryWrites=true&w=majority", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: true,
-});
+mongoose.connect(
+  "mongodb+srv://jason:bwamern@cluster0-ouoio.mongodb.net/db_staycation?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: true,
+  }
+);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -35,7 +39,8 @@ app.use(
     cookie: { maxAge: 60000 },
   })
 );
-app.use(flash())
+app.use(flash());
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
